@@ -71,7 +71,7 @@ namespace c_sharp_BankSystemDevelopment
             if (Withdraw(sourceAccount, amount))
             {
                 Deposit(targetAccount,amount);
-                Console.WriteLine($"Transferred {amount:C} from Account {sourceAccount.AccountNumber} to Account {targetAccount.AccountNumber}");
+                Console.WriteLine($"Transferred {amount:RO} from Account {sourceAccount.AccountNumber} to Account {targetAccount.AccountNumber}");
 
                 // Automatically save both accounts after a successful transfer
                 SaveAccountToJson(sourceAccount);
@@ -83,6 +83,21 @@ namespace c_sharp_BankSystemDevelopment
             {
                 Console.WriteLine("Transfer failed.");
                 return false;
+            }
+        }
+        public void DisplayAccountInformation(int accountNumber)
+        {
+            Account account = accounts.FirstOrDefault(acc => acc.AccountNumber == accountNumber);
+
+            if (account != null)
+            {
+                Console.WriteLine($"Account Number: {account.AccountNumber}");
+                Console.WriteLine($"Account Holder Name: {account.AccountHolderName}");
+                Console.WriteLine($"Current Balance: {account.Balance:C}");
+            }
+            else
+            {
+                Console.WriteLine("Account not found.");
             }
         }
     }
