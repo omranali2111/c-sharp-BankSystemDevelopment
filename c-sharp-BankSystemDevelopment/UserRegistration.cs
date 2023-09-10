@@ -26,7 +26,7 @@ namespace c_sharp_BankSystemDevelopment
                
                     User newUser = new User(name, email, inputPassword);
                     registeredUsers.Add(newUser);
-                    Save();
+                    SaveUsersToJson();
                     Console.WriteLine("Registration successful!");
                
 
@@ -39,16 +39,16 @@ namespace c_sharp_BankSystemDevelopment
                 Console.WriteLine("Email address is already registered.");
             }
         }
-        public void Save()
+        public void SaveUsersToJson()
         {
             try
             {
-                string json = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText($"Users.json", json);
+                string json = JsonSerializer.Serialize(registeredUsers, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText("Users.json", json);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while saving the invoice: {ex.Message}");
+                Console.WriteLine($"An error occurred while saving user data: {ex.Message}");
             }
         }
 
@@ -93,7 +93,18 @@ namespace c_sharp_BankSystemDevelopment
                 return false;
             }
         }
+        public void UserLogin()
+        {
+            Console.WriteLine("Enter your email: ");
+            string email = Console.ReadLine();
 
+            Console.WriteLine("Enter your password: ");
+            string password = Console.ReadLine();
+
+            bool loginSuccessful = LoginUser(email, password);
+
+          
+        }
     }
 
 }
