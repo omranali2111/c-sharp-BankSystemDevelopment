@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "omran",
+    "Email": "omran@gmail",
+    "PasswordHash": "$2a$10$lpH0VLCiM8nfP/F2lSPkhuA0OWZsARK9TanAVhVjQ5Wl890m192KS"
+  },
+  {
+    "Name": "ali",
+    "Email": "ali@gmail",
+    "PasswordHash": "$2a$10$UEokFzrhBcaybaubUsxX2ecrMhxPB2XPgVSf4E7eN4C2bNJBFwWQS"
+  }
+]

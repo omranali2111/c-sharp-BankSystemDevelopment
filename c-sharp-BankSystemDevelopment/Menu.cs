@@ -17,6 +17,8 @@ namespace c_sharp_BankSystemDevelopment
         {
             this.userRegistration = userRegistration;
             this.accountOperations = accountOperations;
+            userRegistration.LoadUsersFromJson();
+
         }
         public void Start()
         {
@@ -34,6 +36,7 @@ namespace c_sharp_BankSystemDevelopment
                 switch (choice)
                 {
                     case "1":
+                        
                         userRegistration.RegisterUser();
                         break;
                     case "2":
@@ -101,6 +104,7 @@ namespace c_sharp_BankSystemDevelopment
             {
                 Account newAccount = accountOperations.CreateAccount(accountHolderName, initialBalance);
                 Console.WriteLine($"Account created successfully. Account number: {newAccount.AccountNumber}");
+
             }
             else
             {
@@ -118,38 +122,46 @@ namespace c_sharp_BankSystemDevelopment
 
                 if (selectedAccount != null)
                 {
-                    while (!exit)
+                    // Check if the selected account belongs to the current user
+                    if (userRegistration.GetAccountsForUser(currentUser).Contains(selectedAccount))
                     {
-                        Console.Clear();
-                        Console.WriteLine($"Account Number: {selectedAccount.AccountNumber}");
-                        Console.WriteLine($"Account Holder Name: {selectedAccount.AccountHolderName}");
-                        Console.WriteLine($"Current Balance: {selectedAccount.Balance:C}");
-                        Console.WriteLine("Account Operations:");
-                        Console.WriteLine("1. Deposit");
-                        Console.WriteLine("2. Withdraw");
-                        Console.WriteLine("3. Money Transfer");
-                        Console.WriteLine("4. Back to Main Menu");
-
-                        string choice = Console.ReadLine();
-
-                        switch (choice)
+                        while (!exit)
                         {
-                            case "1":
-                                DepositOperation(selectedAccount);
-                                break;
-                            case "2":
-                                WithdrawalOperation(selectedAccount);
-                                break;
-                            case "3":
-                                MoneyTransferOperation(selectedAccount);
-                                break;
-                            case "4":
-                                exit = true; // Return to the main account menu
-                                break;
-                            default:
-                                Console.WriteLine("Invalid choice. Please try again.");
-                                break;
+                            Console.Clear();
+                            Console.WriteLine($"Account Number: {selectedAccount.AccountNumber}");
+                            Console.WriteLine($"Account Holder Name: {selectedAccount.AccountHolderName}");
+                            Console.WriteLine($"Current Balance: {selectedAccount.Balance:C}");
+                            Console.WriteLine("Account Operations:");
+                            Console.WriteLine("1. Deposit");
+                            Console.WriteLine("2. Withdraw");
+                            Console.WriteLine("3. Money Transfer");
+                            Console.WriteLine("4. Back to Main Menu");
+
+                            string choice = Console.ReadLine();
+
+                            switch (choice)
+                            {
+                                case "1":
+                                    DepositOperation(selectedAccount);
+                                    break;
+                                case "2":
+                                    WithdrawalOperation(selectedAccount);
+                                    break;
+                                case "3":
+                                    MoneyTransferOperation(selectedAccount);
+                                    break;
+                                case "4":
+                                    exit = true; // Return to the main account menu
+                                    break;
+                                default:
+                                    Console.WriteLine("Invalid choice. Please try again.");
+                                    break;
+                            }
                         }
+                    }
+                    else
+                    {
+                        Console.WriteLine("You do not have access to this account.");
                     }
                 }
                 else

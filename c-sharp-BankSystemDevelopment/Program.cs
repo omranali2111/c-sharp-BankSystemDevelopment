@@ -9,7 +9,6 @@ internal class Program
         Menu menu = new Menu(userRegistration, accountOperations);
 
      
-        userRegistration.LoadUsersFromJson();
 
         menu.Start();
     }

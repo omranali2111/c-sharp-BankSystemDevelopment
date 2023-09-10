@@ -1,0 +1,17 @@
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\bin\Debug\net6.0\c-sharp-BankSystemDevelopment.exe
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\bin\Debug\net6.0\c-sharp-BankSystemDevelopment.deps.json
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\bin\Debug\net6.0\c-sharp-BankSystemDevelopment.runtimeconfig.json
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\bin\Debug\net6.0\c-sharp-BankSystemDevelopment.dll
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\bin\Debug\net6.0\c-sharp-BankSystemDevelopment.pdb
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\bin\Debug\net6.0\BCrypt.Net.dll
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\obj\Debug\net6.0\c-sharp-BankSystemDevelopment.csproj.AssemblyReference.cache
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\obj\Debug\net6.0\c-sharp-BankSystemDevelopment.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\obj\Debug\net6.0\c-sharp-BankSystemDevelopment.AssemblyInfoInputs.cache
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\obj\Debug\net6.0\c-sharp-BankSystemDevelopment.AssemblyInfo.cs
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\obj\Debug\net6.0\c-sharp-BankSystemDevelopment.csproj.CoreCompileInputs.cache
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\obj\Debug\net6.0\c-sharp-BankSystemDevelopment.csproj.CopyComplete
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\obj\Debug\net6.0\c-sharp-BankSystemDevelopment.dll
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\obj\Debug\net6.0\refint\c-sharp-BankSystemDevelopment.dll
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\obj\Debug\net6.0\c-sharp-BankSystemDevelopment.pdb
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\obj\Debug\net6.0\c-sharp-BankSystemDevelopment.genruntimeconfig.cache
+C:\Users\ict\Desktop\code-TRA\c-sharp-BankSystemDevelopment\c-sharp-BankSystemDevelopment\obj\Debug\net6.0\ref\c-sharp-BankSystemDevelopment.dll

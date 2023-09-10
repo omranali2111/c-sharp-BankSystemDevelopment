@@ -10,6 +10,7 @@ namespace c_sharp_BankSystemDevelopment
     internal class UserRegistration
     {
         private List<User> registeredUsers = new List<User>();
+        private Dictionary<User, List<Account>> userAccounts = new Dictionary<User, List<Account>>();
         private User currentUser;
 
         public void RegisterUser()
@@ -24,15 +25,12 @@ namespace c_sharp_BankSystemDevelopment
             {
                 Console.WriteLine("Enter your password: ");
                 string inputPassword = Console.ReadLine();
-               
-                    User newUser = new User(name, email, inputPassword);
-                    registeredUsers.Add(newUser);
-                    SaveUsersToJson();
-                    Console.WriteLine("Registration successful!");
-               
-
-
-
+                LoadUsersFromJson();
+                User newUser = new User(name, email, inputPassword);
+                registeredUsers.Add(newUser);
+                SaveUsersToJson();
+                Console.WriteLine("Registration successful!");
+                Thread.Sleep(1000);
                
             }
             else
@@ -46,6 +44,7 @@ namespace c_sharp_BankSystemDevelopment
             {
                 string json = JsonSerializer.Serialize(registeredUsers, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText("Users.json", json);
+                Console.WriteLine("User data saved successfully.");
             }
             catch (Exception ex)
             {
@@ -69,13 +68,20 @@ namespace c_sharp_BankSystemDevelopment
             try
             {
                 string json = File.ReadAllText("Users.json");
-                registeredUsers = JsonSerializer.Deserialize<List<User>>(json);
+                List<User> loadedUsers = JsonSerializer.Deserialize<List<User>>(json);
+                if (loadedUsers != null)
+                {
+                   
+                    registeredUsers.AddRange(loadedUsers); // Add loaded users to the list
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred while loading user data: {ex.Message}");
             }
         }
+       
+
 
         public bool LoginUser(string email, string password)
         {
@@ -114,6 +120,30 @@ namespace c_sharp_BankSystemDevelopment
         public User GetCurrentUser()
         {
             return currentUser; 
+        }
+        public void AssociateAccountWithUser(User user, Account account)
+        {
+            if (userAccounts.ContainsKey(user))
+            {
+                userAccounts[user].Add(account);
+            }
+            else
+            {
+                Console.WriteLine("User not found.");
+            }
+        }
+
+        public List<Account> GetAccountsForUser(User user)
+        {
+            if (userAccounts.ContainsKey(user))
+            {
+                return userAccounts[user];
+            }
+            else
+            {
+                Console.WriteLine("User not found.");
+                return new List<Account>();
+            }
         }
     }
 
