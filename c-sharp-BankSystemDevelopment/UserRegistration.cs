@@ -22,14 +22,17 @@ namespace c_sharp_BankSystemDevelopment
             if (IsEmailUnique(email))
             {
                 Console.WriteLine("Enter your password: ");
-                string password = Console.ReadLine();
+                string inputPassword = Console.ReadLine();
+               
+                    User newUser = new User(name, email, inputPassword);
+                    registeredUsers.Add(newUser);
+                    Save();
+                    Console.WriteLine("Registration successful!");
+               
 
-                
 
-                User newUser = new User(name, email, password);
-                registeredUsers.Add(newUser);
-                Save();
-                Console.WriteLine("Registration successful!");
+
+               
             }
             else
             {

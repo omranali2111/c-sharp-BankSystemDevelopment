@@ -1,8 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "oXJzrjIqEmFdORS3RZM1DlVfO829dFOe768LiFjHmt9qP9KMwFTzh0IJRUO8dieMgp9e4A8dE8hMJsLazvoRLA==",
+  "dgSpecHash": "lK6NNU9Nm0V3C0lvyXZPYXrOe6t0QokOonTxPdEdPcdI/ZQTKxT93HaDeSbOLuVwqr81IChnE2JQ38Bipq06ZA==",
   "success": true,
   "projectFilePath": "C:\\Users\\ict\\Desktop\\code-TRA\\c-sharp-BankSystemDevelopment\\c-sharp-BankSystemDevelopment\\c-sharp-BankSystemDevelopment.csproj",
-  "expectedPackageFiles": [],
-  "logs": []
+  "expectedPackageFiles": [
+    "C:\\Users\\ict\\.nuget\\packages\\bcrypt.net\\0.1.0\\bcrypt.net.0.1.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'BCrypt.Net 0.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "BCrypt.Net",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }
