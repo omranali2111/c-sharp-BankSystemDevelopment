@@ -63,6 +63,37 @@ namespace c_sharp_BankSystemDevelopment
             }
             return true;
         }
+        public void LoadUsersFromJson()
+        {
+            try
+            {
+                string json = File.ReadAllText("Users.json");
+                registeredUsers = JsonSerializer.Deserialize<List<User>>(json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while loading user data: {ex.Message}");
+            }
+        }
+
+        public bool LoginUser(string email, string password)
+        {
+            LoadUsersFromJson();
+
+            User user = registeredUsers.FirstOrDefault(u => u.Email == email);
+
+            if (user != null && user.VerifyPassword(password))
+            {
+                Console.WriteLine("Login successful!");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Login failed. Check your email and password.");
+                return false;
+            }
+        }
+
     }
 
 }
