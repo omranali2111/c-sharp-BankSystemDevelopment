@@ -10,8 +10,9 @@ namespace c_sharp_BankSystemDevelopment
     internal class UserRegistration
     {
         private List<User> registeredUsers = new List<User>();
-       
-        private void RegisterUser()
+        private User currentUser;
+
+        public void RegisterUser()
         {
             Console.WriteLine("Enter your name: ");
             string name = Console.ReadLine();
@@ -93,7 +94,7 @@ namespace c_sharp_BankSystemDevelopment
                 return false;
             }
         }
-        public void UserLogin()
+        public bool UserLogin()
         {
             Console.WriteLine("Enter your email: ");
             string email = Console.ReadLine();
@@ -103,7 +104,16 @@ namespace c_sharp_BankSystemDevelopment
 
             bool loginSuccessful = LoginUser(email, password);
 
-          
+            if (loginSuccessful)
+            {
+                currentUser = registeredUsers.FirstOrDefault(u => u.Email == email);
+            }
+
+            return loginSuccessful;
+        }
+        public User GetCurrentUser()
+        {
+            return currentUser; 
         }
     }
 

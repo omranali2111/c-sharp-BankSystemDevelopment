@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace c_sharp_BankSystemDevelopment
 {
     internal class AccountOperations
     {
         private List<Account> accounts = new List<Account>();
+       
 
 
         public Account CreateAccount(string accountHolderName, decimal initialBalance)
@@ -33,6 +35,34 @@ namespace c_sharp_BankSystemDevelopment
             {
                 Console.WriteLine($"An error occurred while saving account data: {ex.Message}");
             }
+        }
+        public void LoadAccountsFromJson(string fileName)
+        {
+            try
+            {
+                if (File.Exists(fileName))
+                {
+                    string json = File.ReadAllText(fileName);
+                    List<Account> loadedAccounts = JsonSerializer.Deserialize<List<Account>>(json);
+                    if (loadedAccounts != null)
+                    {
+                        accounts.AddRange(loadedAccounts);
+                        Console.WriteLine($"Loaded {loadedAccounts.Count} accounts from {fileName}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"File {fileName} does not exist.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while loading account data: {ex.Message}");
+            }
+        }
+        public Account GetAccountByNumber(int accountNumber)
+        {
+            return accounts.FirstOrDefault(account => account.AccountNumber == accountNumber);
         }
 
 
@@ -93,7 +123,7 @@ namespace c_sharp_BankSystemDevelopment
             {
                 Console.WriteLine($"Account Number: {account.AccountNumber}");
                 Console.WriteLine($"Account Holder Name: {account.AccountHolderName}");
-                Console.WriteLine($"Current Balance: {account.Balance:C}");
+                Console.WriteLine($"Current Balance: {account.Balance:Ro}");
             }
             else
             {
