@@ -102,66 +102,58 @@ namespace c_sharp_BankSystemDevelopment
             Console.WriteLine("Enter initial balance: ");
             if (decimal.TryParse(Console.ReadLine(), out decimal initialBalance))
             {
-                Account newAccount = accountOperations.CreateAccount(accountHolderName, initialBalance);
-                Console.WriteLine($"Account created successfully. Account number: {newAccount.AccountNumber}");
+                accountOperations.CreateAccount(currentUser, accountHolderName, initialBalance);
 
+                Console.WriteLine("Account creation initiated.");
             }
             else
             {
                 Console.WriteLine("Invalid initial balance. Please enter a valid number.");
             }
         }
-
         private void EnterAccountSubMenu()
         {
             Console.WriteLine("Enter account number: ");
             if (int.TryParse(Console.ReadLine(), out int accountNumber))
             {
                 bool exit = false;
-                Account selectedAccount = accountOperations.GetAccountByNumber(accountNumber);
+                var userAccounts = accountOperations.GetAccountsForUser(currentUser);
+                Account selectedAccount = userAccounts.FirstOrDefault(acc => acc.AccountNumber == accountNumber);
 
                 if (selectedAccount != null)
                 {
-                    // Check if the selected account belongs to the current user
-                    if (userRegistration.GetAccountsForUser(currentUser).Contains(selectedAccount))
+                    while (!exit)
                     {
-                        while (!exit)
+                        Console.Clear();
+                        Console.WriteLine($"Account Number: {selectedAccount.AccountNumber}");
+                        Console.WriteLine($"Account Holder Name: {selectedAccount.AccountHolderName}");
+                        Console.WriteLine($"Current Balance: {selectedAccount.Balance:RO}");
+                        Console.WriteLine("Account Operations:");
+                        Console.WriteLine("1. Deposit");
+                        Console.WriteLine("2. Withdraw");
+                        Console.WriteLine("3. Money Transfer");
+                        Console.WriteLine("4. Back to Main Menu");
+
+                        string choice = Console.ReadLine();
+
+                        switch (choice)
                         {
-                            Console.Clear();
-                            Console.WriteLine($"Account Number: {selectedAccount.AccountNumber}");
-                            Console.WriteLine($"Account Holder Name: {selectedAccount.AccountHolderName}");
-                            Console.WriteLine($"Current Balance: {selectedAccount.Balance:C}");
-                            Console.WriteLine("Account Operations:");
-                            Console.WriteLine("1. Deposit");
-                            Console.WriteLine("2. Withdraw");
-                            Console.WriteLine("3. Money Transfer");
-                            Console.WriteLine("4. Back to Main Menu");
-
-                            string choice = Console.ReadLine();
-
-                            switch (choice)
-                            {
-                                case "1":
-                                    DepositOperation(selectedAccount);
-                                    break;
-                                case "2":
-                                    WithdrawalOperation(selectedAccount);
-                                    break;
-                                case "3":
-                                    MoneyTransferOperation(selectedAccount);
-                                    break;
-                                case "4":
-                                    exit = true; // Return to the main account menu
-                                    break;
-                                default:
-                                    Console.WriteLine("Invalid choice. Please try again.");
-                                    break;
-                            }
+                            case "1":
+                                DepositOperation(selectedAccount);
+                                break;
+                            case "2":
+                                WithdrawalOperation(selectedAccount);
+                                break;
+                            case "3":
+                                MoneyTransferOperation(selectedAccount);
+                                break;
+                            case "4":
+                                exit = true; // Return to the main account menu
+                                break;
+                            default:
+                                Console.WriteLine("Invalid choice. Please try again.");
+                                break;
                         }
-                    }
-                    else
-                    {
-                        Console.WriteLine("You do not have access to this account.");
                     }
                 }
                 else
@@ -204,7 +196,9 @@ namespace c_sharp_BankSystemDevelopment
             Console.WriteLine("Enter the recipient's account number: ");
             if (int.TryParse(Console.ReadLine(), out int recipientAccountNumber))
             {
-                Account recipientAccount = accountOperations.GetAccountByNumber(recipientAccountNumber);
+                var userAccounts = accountOperations.GetAccountsForUser(currentUser);
+                Account recipientAccount = userAccounts.FirstOrDefault(acc => acc.AccountNumber == recipientAccountNumber);
+
                 if (recipientAccount != null)
                 {
                     Console.WriteLine("Enter the amount to transfer: ");

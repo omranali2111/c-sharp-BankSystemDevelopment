@@ -10,17 +10,18 @@ namespace c_sharp_BankSystemDevelopment
     internal class UserRegistration
     {
         private List<User> registeredUsers = new List<User>();
-        private Dictionary<User, List<Account>> userAccounts = new Dictionary<User, List<Account>>();
+       
         private User currentUser;
 
         public void RegisterUser()
         {
+            
             Console.WriteLine("Enter your name: ");
             string name = Console.ReadLine();
 
             Console.WriteLine("Enter your email: ");
             string email = Console.ReadLine();
-
+          
             if (IsEmailUnique(email))
             {
                 Console.WriteLine("Enter your password: ");
@@ -71,7 +72,7 @@ namespace c_sharp_BankSystemDevelopment
                 List<User> loadedUsers = JsonSerializer.Deserialize<List<User>>(json);
                 if (loadedUsers != null)
                 {
-                   
+                    
                     registeredUsers.AddRange(loadedUsers); // Add loaded users to the list
                 }
             }
@@ -80,7 +81,8 @@ namespace c_sharp_BankSystemDevelopment
                 Console.WriteLine($"An error occurred while loading user data: {ex.Message}");
             }
         }
-       
+
+
 
 
         public bool LoginUser(string email, string password)
@@ -102,11 +104,13 @@ namespace c_sharp_BankSystemDevelopment
         }
         public bool UserLogin()
         {
+            
             Console.WriteLine("Enter your email: ");
             string email = Console.ReadLine();
 
             Console.WriteLine("Enter your password: ");
             string password = Console.ReadLine();
+         
 
             bool loginSuccessful = LoginUser(email, password);
 
@@ -121,30 +125,7 @@ namespace c_sharp_BankSystemDevelopment
         {
             return currentUser; 
         }
-        public void AssociateAccountWithUser(User user, Account account)
-        {
-            if (userAccounts.ContainsKey(user))
-            {
-                userAccounts[user].Add(account);
-            }
-            else
-            {
-                Console.WriteLine("User not found.");
-            }
-        }
-
-        public List<Account> GetAccountsForUser(User user)
-        {
-            if (userAccounts.ContainsKey(user))
-            {
-                return userAccounts[user];
-            }
-            else
-            {
-                Console.WriteLine("User not found.");
-                return new List<Account>();
-            }
-        }
+       
     }
 
 }

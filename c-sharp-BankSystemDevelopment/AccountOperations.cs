@@ -10,47 +10,67 @@ namespace c_sharp_BankSystemDevelopment
 {
     internal class AccountOperations
     {
-        private List<Account> accounts = new List<Account>();
-       
+        private Dictionary<User, List<Account>> userAccounts = new Dictionary<User, List<Account>>();
 
-
-        public Account CreateAccount(string accountHolderName, decimal initialBalance)
+        public void CreateAccount(User user, string accountHolderName, decimal initialBalance)
         {
+            LoadUserAccountsFromJson(); // Load user accounts from JSON
+
+            if (!userAccounts.ContainsKey(user))
+            {
+                userAccounts[user] = new List<Account>();
+            }
+
             Account newAccount = new Account(accountHolderName, initialBalance);
-            accounts.Add(newAccount);
-            SaveAccountToJson(newAccount);
-            return newAccount;
+            userAccounts[user].Add(newAccount);
 
+            SaveUserAccountsToJson(); // Save user accounts to JSON
+
+            Console.WriteLine($"Account created successfully. Account number: {newAccount.AccountNumber}");
         }
-       
 
-        public void SaveAccountToJson(Account account)
+        public List<Account> GetAccountsForUser(User user)
+        {
+            if (userAccounts.ContainsKey(user))
+            {
+                return userAccounts[user];
+            }
+            else
+            {
+                Console.WriteLine("User not found.");
+                return new List<Account>();
+            }
+        }
+
+
+
+        public void SaveUserAccountsToJson()
         {
             try
             {
-                string fileName = $"{account.AccountNumber}.json";
-                string json = JsonSerializer.Serialize(account, new JsonSerializerOptions { WriteIndented = true });
+                string fileName = "UserAccounts.json";
+                string json = JsonSerializer.Serialize(userAccounts, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(fileName, json);
-                Console.WriteLine($"Account data saved to {fileName}");
+                Console.WriteLine("User-account associations saved successfully.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while saving account data: {ex.Message}");
+                Console.WriteLine($"An error occurred while saving user-account associations: {ex.Message}");
+                
             }
         }
-        public void LoadAccountsFromJson(string fileName)
+
+
+        public void LoadUserAccountsFromJson()
         {
             try
             {
+                string fileName = "UserAccounts.json";
                 if (File.Exists(fileName))
                 {
                     string json = File.ReadAllText(fileName);
-                    List<Account> loadedAccounts = JsonSerializer.Deserialize<List<Account>>(json);
-                    if (loadedAccounts != null)
-                    {
-                        accounts.AddRange(loadedAccounts);
-                        Console.WriteLine($"Loaded {loadedAccounts.Count} accounts from {fileName}");
-                    }
+                    userAccounts = JsonSerializer.Deserialize<Dictionary<User, List<Account>>>(json);
+                    Console.WriteLine($"Loaded user-account associations from {fileName}");
                 }
                 else
                 {
@@ -59,14 +79,9 @@ namespace c_sharp_BankSystemDevelopment
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while loading account data: {ex.Message}");
+                Console.WriteLine($"An error occurred while loading user-account associations: {ex.Message}");
             }
         }
-        public Account GetAccountByNumber(int accountNumber)
-        {
-            return accounts.FirstOrDefault(account => account.AccountNumber == accountNumber);
-        }
-
 
 
         public void Deposit(Account account, decimal amount)
@@ -75,7 +90,7 @@ namespace c_sharp_BankSystemDevelopment
             {
                 account.Balance += amount;
                 Console.WriteLine($"Deposited {amount:RO} into Account {account.AccountNumber}. New balance: {account.Balance:RO}");
-                SaveAccountToJson(account);
+                SaveUserAccountsToJson();
             }
             else
             {
@@ -89,7 +104,7 @@ namespace c_sharp_BankSystemDevelopment
             {
                 account.Balance -= amount;
                 Console.WriteLine($"Withdrawn {amount:RO} from Account {account.AccountNumber}. New balance: {account.Balance:RO}");
-                SaveAccountToJson(account);
+                SaveUserAccountsToJson();
                 return true;
             }
             else
@@ -102,24 +117,26 @@ namespace c_sharp_BankSystemDevelopment
         {
             if (Withdraw(sourceAccount, amount))
             {
-                Deposit(targetAccount,amount);
+                Deposit(targetAccount, amount);
                 Console.WriteLine($"Transferred {amount:RO} from Account {sourceAccount.AccountNumber} to Account {targetAccount.AccountNumber}");
 
-                // Automatically save both accounts after a successful transfer
-                SaveAccountToJson(sourceAccount);
-                SaveAccountToJson(targetAccount);
+                // Save user-account associations here after a successful transfer
+                SaveUserAccountsToJson();
 
-                return true;
+                return true; // Transfer succeeded
             }
             else
             {
                 Console.WriteLine("Transfer failed.");
-                return false;
+                return false; // Transfer failed
             }
         }
-        public void DisplayAccountInformation(int accountNumber)
+
+
+        public void DisplayAccountInformation(User user, int accountNumber)
         {
-            Account account = accounts.FirstOrDefault(acc => acc.AccountNumber == accountNumber);
+            List<Account> userAccounts = GetAccountsForUser(user);
+            Account account = userAccounts.FirstOrDefault(acc => acc.AccountNumber == accountNumber);
 
             if (account != null)
             {
@@ -132,5 +149,6 @@ namespace c_sharp_BankSystemDevelopment
                 Console.WriteLine("Account not found.");
             }
         }
+
     }
 }
