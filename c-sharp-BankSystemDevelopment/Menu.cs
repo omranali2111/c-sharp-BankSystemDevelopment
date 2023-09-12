@@ -17,7 +17,6 @@ namespace c_sharp_BankSystemDevelopment
         {
             this.userRegistration = userRegistration;
             this.accountOperations = accountOperations;
-            userRegistration.LoadUsersFromJson();
 
         }
         public void Start()
@@ -46,7 +45,12 @@ namespace c_sharp_BankSystemDevelopment
                             currentUser = userRegistration.GetCurrentUser();
                             if (currentUser != null)
                             {
+                                Console.WriteLine("Login successful!");
                                 AccountMenu();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Failed to get the current user.");
                             }
                         }
                         break;

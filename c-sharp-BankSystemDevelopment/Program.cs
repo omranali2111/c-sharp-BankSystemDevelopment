@@ -8,8 +8,8 @@ internal class Program
         AccountOperations accountOperations = new AccountOperations();
         Menu menu = new Menu(userRegistration, accountOperations);
 
-     
 
+        //userRegistration.LoadUsersFromJson();
         menu.Start();
     }
 }

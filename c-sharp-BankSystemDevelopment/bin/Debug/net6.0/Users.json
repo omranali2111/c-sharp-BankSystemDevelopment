@@ -1,7 +1,12 @@
 [
   {
+    "Name": "omran",
+    "Email": "omran",
+    "PasswordHash": "123"
+  },
+  {
     "Name": "ali",
     "Email": "ali",
-    "PasswordHash": "$2a$10$z18CmaV.2iHUbXgnszNDueIESX.j7Viw9pXE4Hfp3B5iUf5qikAKm"
+    "PasswordHash": "1234"
   }
 ]
